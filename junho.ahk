@@ -1,9 +1,10 @@
 ; bookmark 관련
 filePath := A_ScriptDir . "\bookmark.txt"
 GuiOpen := false
+MouseControlMode := false
+MouseControlDistance := 100
 GuiTitle := "ATK_Bookmark"
 Gui2Title := "ATK_ScreenProtect"
-Gui3Title := "ATK_KeyboardClickMode"
 SetTitleMatchMode, 2 ; 부분 문자열 일치 모드로 설정 (창 제목이 일부만 일치해도 됨)
 
 ; 화면 꺼짐 방지 관련
@@ -358,3 +359,65 @@ GUIDestroy(HANDLE)
     noScreenOff := false
     Gui, 2: Destroy
     return
+
+^!k:: ;keyboard mouse control mode
+    if (MouseControlMode) {
+        MouseControlMode := false
+        Gui, 3: Destroy
+    }
+    else {
+        MouseControlMode := true
+        Gui, 3: +AlwaysOnTop
+        Gui, 3: Add, Text, w200 h40 vDistanceLabel, move distance : %MouseControlDistance%
+        Gui, 3: Show, x0 y0 w290 h50, % "mouse control mode"
+    }
+    return
+
+3GuiEscape:
+3GuiClose:
+    MouseControlMode := false
+    Gui, 3: Destroy
+    return
+
+#If (MouseControlMode)
+$;::MouseMove, % -MouseControlDistance, 0, 2, R  ; left
+$'::MouseMove, 0, % +MouseControlDistance, 2, R   ; down
+$[::MouseMove, 0, % -MouseControlDistance, 2, R   ; up
+$]::MouseMove, % +MouseControlDistance, 0, 2, R    ; right
+$+;::MouseMove, % -MouseControlDistance * 3, 0, 2, R  ; left
+$+"::MouseMove, 0, % +MouseControlDistance * 3, 2, R   ; down
+$+{::MouseMove, 0, % -MouseControlDistance * 3, 2, R   ; up
+$+}::MouseMove, % +MouseControlDistance * 3, 0, 2, R    ; right
+$^;::MouseMove, % -MouseControlDistance * 0.3, 0, 2, R  ; left
+$^'::MouseMove, 0, % +MouseControlDistance * 0.3, 2, R   ; down
+$^[::MouseMove, 0, % -MouseControlDistance * 0.3, 2, R   ; up
+$^]::MouseMove, % +MouseControlDistance * 0.3, 0, 2, R    ; right
+
+$p::Click
+$+P::Send {Shift Down}{Click}{Shift Up}
+$=::Click right
+
+Esc::
+    MouseControlMode := false
+    Gui, 3: Destroy
+    return
+
+; UpdateGui() {
+;     Gui, 3: Destroy
+;     Gui, 3: +AlwaysOnTop
+;     Gui, 3: Add, Text, w200 h40 vDistanceLabel, move distance : %MouseControlDistance%
+;     Gui, 3: Show, x0 y0 w290 h50, % "mouse control mode"
+; }
+
+; IncreaseDistance() {
+;     MouseControlDistance += 5
+;     UpdateGui()
+; }
+
+; DecreaseDistance() {
+;     if (MouseControlDistance > 5) {
+;         MouseControlDistance -= 5
+;         UpdateGui()
+;     }
+; }
+#If
