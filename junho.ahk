@@ -368,7 +368,7 @@ GUIDestroy(HANDLE)
     else {
         MouseControlMode := true
         Gui, 3: +AlwaysOnTop
-        Gui, 3: Add, Text, w200 h40 vDistanceLabel, move distance : %MouseControlDistance%
+        Gui, 3: Add, Text, w200 h40 vDistanceLabel, Default Move : %MouseControlDistance%`nShift move : %MouseControlDistance% * 2`nCtrl move : %MouseControlDistance% * 0.3
         Gui, 3: Show, x0 y0 w290 h50, % "mouse control mode"
     }
     return
@@ -417,7 +417,7 @@ Esc::
 ; UpdateGui() {
 ;     Gui, 3: Destroy
 ;     Gui, 3: +AlwaysOnTop
-;     Gui, 3: Add, Text, w200 h40 vDistanceLabel, move distance : %MouseControlDistance%
+;     Gui, 3: Add, Text, w200 h40 vDistanceLabel, Default Move : %MouseControlDistance%`nShift move : %MouseControlDistance% * 2`nCtrl move : %MouseControlDistance% * 0.3
 ;     Gui, 3: Show, x0 y0 w290 h50, % "mouse control mode"
 ; }
 
