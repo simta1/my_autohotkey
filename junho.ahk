@@ -380,17 +380,29 @@ GUIDestroy(HANDLE)
     return
 
 #If (MouseControlMode)
+$h::
 $;::MouseMove, % -MouseControlDistance, 0, 2, R  ; left
+$j::
 $'::MouseMove, 0, % +MouseControlDistance, 2, R   ; down
+$k::
 $[::MouseMove, 0, % -MouseControlDistance, 2, R   ; up
+$l::
 $]::MouseMove, % +MouseControlDistance, 0, 2, R    ; right
+$+H::
 $+;::MouseMove, % -MouseControlDistance * 3, 0, 2, R  ; left
+$+J::
 $+"::MouseMove, 0, % +MouseControlDistance * 3, 2, R   ; down
+$+K::
 $+{::MouseMove, 0, % -MouseControlDistance * 3, 2, R   ; up
+$+L::
 $+}::MouseMove, % +MouseControlDistance * 3, 0, 2, R    ; right
+$^h::
 $^;::MouseMove, % -MouseControlDistance * 0.3, 0, 2, R  ; left
+$^j::
 $^'::MouseMove, 0, % +MouseControlDistance * 0.3, 2, R   ; down
+$^k::
 $^[::MouseMove, 0, % -MouseControlDistance * 0.3, 2, R   ; up
+$^l::
 $^]::MouseMove, % +MouseControlDistance * 0.3, 0, 2, R    ; right
 
 $p::Click
