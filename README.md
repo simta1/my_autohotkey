@@ -35,7 +35,7 @@ mode on/off                     Ctrl + Alt + k
 move                            hjkl                            #If mouseControlMode
 move                            ;'[]                            #If mouseControlMode
 move more                       shift + move                    #If mouseControlMode
-move                            ctrl + move                     #If mouseControlMode
+move less                       ctrl + move                     #If mouseControlMode
 click L/R                       yo                              #If mouseControlMode
 click L/R                       /\                              #If mouseControlMode
 wheel D/U                       ui                              #If mouseControlMode
