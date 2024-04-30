@@ -368,7 +368,7 @@ GUIDestroy(HANDLE)
     else {
         MouseControlMode := true
         Gui, 3: +AlwaysOnTop
-        Gui, 3: Add, Text, w200 h40 vDistanceLabel, move distance : %MouseControlDistance%
+        Gui, 3: Add, Text, w200 h40 vDistanceLabel, Default Move : %MouseControlDistance%`nShift move : %MouseControlDistance% * 2`nCtrl move : %MouseControlDistance% * 0.3
         Gui, 3: Show, x0 y0 w290 h50, % "mouse control mode"
     }
     return
@@ -380,17 +380,29 @@ GUIDestroy(HANDLE)
     return
 
 #If (MouseControlMode)
+$h::
 $;::MouseMove, % -MouseControlDistance, 0, 2, R  ; left
+$j::
 $'::MouseMove, 0, % +MouseControlDistance, 2, R   ; down
+$k::
 $[::MouseMove, 0, % -MouseControlDistance, 2, R   ; up
+$l::
 $]::MouseMove, % +MouseControlDistance, 0, 2, R    ; right
+$+H::
 $+;::MouseMove, % -MouseControlDistance * 3, 0, 2, R  ; left
+$+J::
 $+"::MouseMove, 0, % +MouseControlDistance * 3, 2, R   ; down
+$+K::
 $+{::MouseMove, 0, % -MouseControlDistance * 3, 2, R   ; up
+$+L::
 $+}::MouseMove, % +MouseControlDistance * 3, 0, 2, R    ; right
+$^h::
 $^;::MouseMove, % -MouseControlDistance * 0.3, 0, 2, R  ; left
+$^j::
 $^'::MouseMove, 0, % +MouseControlDistance * 0.3, 2, R   ; down
+$^k::
 $^[::MouseMove, 0, % -MouseControlDistance * 0.3, 2, R   ; up
+$^l::
 $^]::MouseMove, % +MouseControlDistance * 0.3, 0, 2, R    ; right
 
 $p::Click
@@ -405,7 +417,7 @@ Esc::
 ; UpdateGui() {
 ;     Gui, 3: Destroy
 ;     Gui, 3: +AlwaysOnTop
-;     Gui, 3: Add, Text, w200 h40 vDistanceLabel, move distance : %MouseControlDistance%
+;     Gui, 3: Add, Text, w200 h40 vDistanceLabel, Default Move : %MouseControlDistance%`nShift move : %MouseControlDistance% * 2`nCtrl move : %MouseControlDistance% * 0.3
 ;     Gui, 3: Show, x0 y0 w290 h50, % "mouse control mode"
 ; }
 
