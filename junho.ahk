@@ -13,8 +13,8 @@ Ctrl + Alt + y     (auto cin)
 
 ---------------------------------------------클립보드 수정
 Ctrl + Alt + r     (줄바꿈 제거)
-::ATKClipboardReplace:: & input target, want
-::ATKClipboardRemove:: & input target
+::ATKClipRep:: & input target, want
+::ATKClipRem:: & input target
 
 ---------------------------------------------북마크
 Ctrl + Alt + c     (북마크 추가)
