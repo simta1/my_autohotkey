@@ -58,7 +58,7 @@ Gui2Title := "ATK_ScreenProtect"
 
 ; 마우스 조종 모드 관련
 MouseControlMode := false
-MouseControlDistance := 100
+MouseControlDistance := 50
 
 ; 빠르게 지우기 모드 관련
 fastEraseMode := false
