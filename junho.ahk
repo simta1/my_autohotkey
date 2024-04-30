@@ -405,14 +405,22 @@ $^[::MouseMove, 0, % -MouseControlDistance * 0.3, 2, R   ; up
 $^l::
 $^]::MouseMove, % +MouseControlDistance * 0.3, 0, 2, R    ; right
 
-$p::Click
-$+P::Send {Shift Down}{Click}{Shift Up}
-$=::Click right
+$/::Click
+$+?::Send {Shift Down}{Click}{Shift Up}
+$\::Click right
+$p::MouseClick, WheelDown
+$=::MouseClick, WheelUp
 
-Esc::
-    MouseControlMode := false
-    Gui, 3: Destroy
-    return
+$y::Click
+$+y::Send {Shift Down}{Click}{Shift Up}
+$o::Click right
+$u::MouseClick, WheelDown
+$i::MouseClick, WheelUp
+
+; Esc::
+;     MouseControlMode := false
+;     Gui, 3: Destroy
+;     return
 
 ; UpdateGui() {
 ;     Gui, 3: Destroy
