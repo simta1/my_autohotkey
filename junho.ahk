@@ -27,6 +27,7 @@ Ctrl + Alt + o     (북마크 목록 열기)
 Win + c     (wifi창 열기)
 Alt + c     (주소 복사)
 Ctrl + Shift + i     (글자 수 계산)
+Ctrl + Alt + v     (글꼴 제거 후 텍스트만 붙여넣기)
 
 ---------------------------------------------화면 꺼짐 방지 모드
 Ctrl + Alt + s     (모드 on/off)
@@ -358,6 +359,14 @@ countNumberOfWords(text) {
     return totalWords
 }
 
+^!v::
+    BackupClipboard := ClipboardAll
+    str := Clipboard
+    Clipboard := str
+    Send, ^v
+    Sleep, 200
+    Clipboard := BackupClipboard
+    return
 
 ^!s:: ;block screen off
 ^!+s::
