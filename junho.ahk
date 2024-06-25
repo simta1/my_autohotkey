@@ -88,7 +88,16 @@ Loop
 	return
 
 ^!i::
-	SendByPaste("#include <bits/stdc++.h>`nusing namespace std;`n`n")
+headerCode = 
+(
+#include <bits/stdc++.h>
+#include <ext/rope>
+using namespace std;
+using namespace __gnu_cxx;
+
+
+)
+	SendByPaste(headerCode)
 	return
 
 ^!j::
