@@ -4,8 +4,10 @@ hotkeyList =
 Ctrl + Alt + h     (핫키 리스트 출력)
 
 ---------------------------------------------코딩용 매크로
-Ctrl + Alt + i     (#include 코드)
+Ctrl + Alt + i     (#include 코드, bits/stdc++.h만)
+Ctrl + Alt + u     (#include 코드, ext/ 포함)
 Ctrl + Alt + j     (int main, fastio 코드)
+Ctrl + Alt + t     (테스트케이스 여러개용 for loop 코드)
 vhf i n     (for문 매크로)
 v=f i n     (for문 매크로)
 ---------------------------------------------#If(WinActivate VSC)
@@ -98,8 +100,13 @@ Loop
 ^!j::
 	SendByPaste("int main() ")
 	SendRaw, {`n
-	Sleep, 10
+	Sleep, 3
 	SendByPasteEnter("cin.tie(0) -> sync_with_stdio(0);")
+	return
+
+^!t::
+	SendByPaste("int t;`n`tfor (cin >> t; t--;) ")
+    SendRaw, {`n
 	return
 
 ::vhf:: ; for (int i = 0; i < n; i++)
