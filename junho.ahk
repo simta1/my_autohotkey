@@ -99,7 +99,7 @@ Loop
 	return
 
 ^!p::
-	SendByPaste("#include <ext/pb_ds/assoc_container.hpp>`n#include <ext/pb_ds/tree_policy.hpp>`nusing namespace __gnu_pbds;`nusing ordered_set = tree<int,null_type,less<int>,rb_tree_tag,tree_order_statistics_node_update>;`n`n")
+	SendByPaste("#include <ext/pb_ds/assoc_container.hpp>`n#include <ext/pb_ds/tree_policy.hpp>`nusing namespace __gnu_pbds;`nusing ordered_set = tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update>;`n`n")
 	return
 
 ^!j::
