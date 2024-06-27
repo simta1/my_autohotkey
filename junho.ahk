@@ -4,8 +4,9 @@ hotkeyList =
 Ctrl + Alt + h     (핫키 리스트 출력)
 
 ---------------------------------------------코딩용 매크로
-Ctrl + Alt + i     (#include 코드, bits/stdc++.h만)
-Ctrl + Alt + u     (#include 코드, ext/ 포함)
+Ctrl + Alt + i     (#include bits/stdc++.h)
+Ctrl + Alt + e     (#include ext/rope)
+Ctrl + Alt + p     (#include ext/pbds)
 Ctrl + Alt + j     (int main, fastio 코드)
 Ctrl + Alt + t     (테스트케이스 여러개용 for loop 코드)
 vhf i n     (for문 매크로)
@@ -93,8 +94,12 @@ Loop
 	SendByPaste("#include <bits/stdc++.h>`nusing namespace std;`n`n")
 	return
 
-^!u::
-	SendByPaste("#include <bits/stdc++.h>`n#include <ext/rope>`nusing namespace std;`nusing namespace __gnu_cxx;`n`n")
+^!e::
+	SendByPaste("#include <ext/rope>`nusing namespace __gnu_cxx;`n`n")
+	return
+
+^!p::
+	SendByPaste("#include <ext/pb_ds/assoc_container.hpp>`n#include <ext/pb_ds/tree_policy.hpp>`nusing namespace __gnu_pbds;`nusing ordered_set = tree<int,null_type,less<int>,rb_tree_tag,tree_order_statistics_node_update>;`n`n")
 	return
 
 ^!j::
