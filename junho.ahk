@@ -11,6 +11,7 @@ Ctrl + Alt + j     (int main, fastio 코드)
 Ctrl + Alt + t     (테스트케이스 여러개용 for loop 코드)
 vhf i n     (for문 매크로)
 v=f i n     (for문 매크로)
+::dkdnt:: v (vector 출력 매크로)
 ---------------------------------------------#If(WinActivate VSC)
 Ctrl + Alt + y     (auto cin)
 
@@ -103,15 +104,12 @@ Loop
 	return
 
 ^!j::
-	SendByPaste("int main() ")
-	SendRaw, {`n
-	Sleep, 3
+	SendByPasteWithBracket("int main() ")
 	SendByPasteEnter("cin.tie(0) -> sync_with_stdio(0);")
 	return
 
 ^!t::
-	SendByPaste("int t;`n`tfor (cin >> t; t--;) ")
-    SendRaw, {`n
+	SendByPasteWithBracket("int t;`n`tfor (cin >> t; t--;) ")
 	return
 
 ::vhf:: ; for (int i = 0; i < n; i++)
@@ -125,6 +123,11 @@ Loop
 	Input, num, , {enter}{space};
 	SendByPasteWithBracket("for (int " . idxName . " = 1; " . idxName . " <= " . num "; " . idxName . "++) ")
 	return
+
+::dkdnt:: ; for (auto &e : v) cout << e << " "; cout << "\n";
+    Input, vecName, , {enter}{space};
+    SendByPaste("for (auto &e : " . vecName . ") cout << e << "" ""; cout << ""\n"";`n")
+    return
 
 #IfWinExist, Visual Studio Code
 #IfWinActive, Visual Studio Code
@@ -185,7 +188,7 @@ SendByPasteWithBracket(string)
     Sleep, 50
     Send, ^v
 	Send, {{}{Enter}
-    Sleep, 200
+    Sleep, 3
     Clipboard := BackupClipboard
 }
 
