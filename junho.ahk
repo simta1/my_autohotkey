@@ -135,10 +135,11 @@ Loop
     BackupClipboard := ClipboardAll
     Clipboard := ""
     Send, ^[
-    Sleep, 50
+    Sleep, 3
     SendRaw, "+yy
-    Sleep, 50
+    Sleep, 3
     Send, o
+    Sleep, 25
 	str := Clipboard
 	Clipboard := BackupClipboard
 
@@ -148,14 +149,14 @@ Loop
     str := SubStr(str, len + 1)
     str := trim(str)
     StringSplit, Words, str, `,
-    string := "cin"
+    output := "cin"
     Loop, % Words0
     {
         word := Words%A_Index%
         word := trim(word)
-        string .= " >> "word
+        output .= " >> "word
     }
-	SendByPaste(string)
+	SendByPaste(output)
     return
 #ifWinExist
 #IfWinActive
