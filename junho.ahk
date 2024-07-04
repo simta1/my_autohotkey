@@ -135,11 +135,10 @@ Loop
     BackupClipboard := ClipboardAll
     Clipboard := ""
     Send, ^[
-    Sleep, 3
+    Sleep, 50
     SendRaw, "+yy
-    Sleep, 3
+    Sleep, 50
     Send, o
-    Sleep, 25
 	str := Clipboard
 	Clipboard := BackupClipboard
 
@@ -158,6 +157,7 @@ Loop
     }
 	SendByPaste(output)
     return
+
 #ifWinExist
 #IfWinActive
 
