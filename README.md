@@ -12,8 +12,8 @@
 |                                 |                                 |                                  |
 | **clipboard**                   |                                 |                                  |
 | remove Enter                    | `Ctrl + Alt + r`                |                                  |
-| replace                         | `::ATKClipRep:: {t} {w}`        |                                  |
-| remove                          | `::ATKClipRem:: {t}`            |                                  |
+| replace                         | `::ATKClipRep:: {pattern} {str}`|                                  |
+| remove                          | `::ATKClipRem:: {pattern}`      |                                  |
 |                                 |                                 |                                  |
 | **bookmark**                    |                                 |                                  |
 | add bookmark                    | `Ctrl + Alt + c`                |                                  |
