@@ -9,16 +9,16 @@ Ctrl + Alt + e     (#include ext/rope)
 Ctrl + Alt + p     (#include ext/pbds)
 Ctrl + Alt + j     (int main, fastio 코드)
 Ctrl + Alt + t     (테스트케이스 여러개용 for loop 코드)
-vhf i n     (for문 매크로)
-v=f i n     (for문 매크로)
+::vhf:: i n     (for문 매크로)
+::v=f:: i n     (for문 매크로)
 ::dkdnt:: v (vector 출력 매크로)
 ---------------------------------------------#If(WinActivate VSC)
 Ctrl + Alt + y     (auto cin)
 
 ---------------------------------------------클립보드 수정
 Ctrl + Alt + r     (줄바꿈 제거)
-::ATKClipRep:: & input target, want
-::ATKClipRem:: & input target
+::ATKClipRep:: pat str
+::ATKClipRem:: pat str
 
 ---------------------------------------------북마크
 Ctrl + Alt + c     (북마크 추가)
@@ -201,14 +201,14 @@ SendByPasteWithBracket(string)
 	Msgbox, , , %clipboard%, 0.8
 	return
 
-::ATKClipboardReplace::
+::ATKClipRep::
 	Input, target, L1
 	Input, want, L1
 	clipboard := StrReplace(clipboard, target, want)
 	Msgbox, , , %clipboard%, 0.8
 	return
 
-::ATKClipboardRemove::
+::ATKClipRem::
 	Input, target, L1
 	clipboard := StrReplace(clipboard, target, "")
 	Msgbox, , , %clipboard%, 0.8
