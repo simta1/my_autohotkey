@@ -1,58 +1,3 @@
-hotkeyList =
-(
----------------------------------------------도움말
-Ctrl + Alt + h     (핫키 리스트 출력)
-
----------------------------------------------코딩용 매크로
-Ctrl + Alt + i     (#include bits/stdc++.h)
-Ctrl + Alt + e     (#include ext/rope)
-Ctrl + Alt + p     (#include ext/pbds)
-Ctrl + Alt + j     (int main, fastio 코드)
-Ctrl + Alt + t     (테스트케이스 여러개용 for loop 코드)
-::vhf:: i n     (for문 매크로)
-::v=f:: i n     (for문 매크로)
-::dkdnt:: v (vector 출력 매크로)
----------------------------------------------#If(WinActivate VSC)
-Ctrl + Alt + y     (auto cin)
-
----------------------------------------------클립보드 수정
-Ctrl + Alt + r     (줄바꿈 제거)
-::ATKClipRep:: pat str
-::ATKClipRem:: pat str
-
----------------------------------------------북마크
-Ctrl + Alt + c     (북마크 추가)
-Ctrl + Alt + o     (북마크 목록 열기)
----------------------------------------------#If(WinActivate BookmarkGUI)
-1~9     (해당 번호의 북마크 선택)
-0     (마지막 북마크 선택)
-
----------------------------------------------기타
-Win + c     (wifi창 열기)
-Alt + c     (주소 복사)
-Ctrl + Shift + i     (글자 수 계산)
-Ctrl + Alt + v     (글꼴 제거 후 텍스트만 붙여넣기)
-
----------------------------------------------화면 꺼짐 방지 모드
-Ctrl + Alt + s     (모드 on/off)
----------------------------------------------화면 꺼짐 방지 모드 + 화면 가림창
-Ctrl + Alt + Shift + s     (모드 on/off)
-
----------------------------------------------마우스 조종 모드
-Ctrl + Alt + k     (모드 on/off)
-hjkl     (좌하상우 이동)
-;'[]     (좌하상우 이동)
-shift + 이동     (300`% 이동)
-ctrl + 이동     (30`% 이동)
-yuio     (좌클릭, 아래휠, 위휠, 우클릭)
-/p=\     (좌클릭, 아래휠, 위휠, 우클릭)
-
----------------------------------------------빠르게 지우기 모드
-Ctrl + Alt + q     (모드 on/off)  
-q     (home까지 삭제)
-w     (end까지 삭제)
-)
-
 ; 북마크 관련
 bookmarkFilePath := A_ScriptDir . "\bookmark.txt"
 bookmarkGuiOpened := false
@@ -87,15 +32,11 @@ Loop
     }
 }
 
-^!h:: ;help
-	MsgBox, % hotkeyList
-	return
-
 ^!i::
 	SendByPaste("#include <bits/stdc++.h>`nusing namespace std;`n`n")
 	return
 
-^!e::
+^!r::
 	SendByPaste("#include <ext/rope>`nusing namespace __gnu_cxx;`n`n")
 	return
 
@@ -107,27 +48,6 @@ Loop
 	SendByPasteWithBracket("int main() ")
 	SendByPasteEnter("cin.tie(0) -> sync_with_stdio(0);")
 	return
-
-^!t::
-	SendByPasteWithBracket("int t;`n`tfor (cin >> t; t--;) ")
-	return
-
-::vhf:: ; for (int i = 0; i < n; i++)
-	Input, idxName, , {enter}{space};
-	Input, num, , {enter}{space};
-	SendByPasteWithBracket("for (int " . idxName . " = 0; " . idxName . " < " . num "; " . idxName . "++) ")
-	return
-
-::v=f:: ; for (int i = 1; i <= n; i++) {
-	Input, idxName, , {enter}{space};
-	Input, num, , {enter}{space};
-	SendByPasteWithBracket("for (int " . idxName . " = 1; " . idxName . " <= " . num "; " . idxName . "++) ")
-	return
-
-::dkdnt:: ; for (auto &e : v) cout << e << " "; cout << "\n";
-    Input, vecName, , {enter}{space};
-    SendByPaste("for (auto &e : " . vecName . ") cout << e << "" ""; cout << ""\n"";`n")
-    return
 
 #IfWinExist, Visual Studio Code
 #IfWinActive, Visual Studio Code
@@ -161,6 +81,27 @@ Loop
 #ifWinExist
 #IfWinActive
 
+::dkdnt:: ; for (auto &e : v) cout << e << " "; cout << "\n";
+    Input, vecName, , {enter}{space};
+    SendByPaste("for (auto &e : " . vecName . ") cout << e << "" ""; cout << ""\n"";`n")
+    return
+
+^!t::
+	SendByPasteWithBracket("int t;`n`tfor (cin >> t; t--;) ")
+	return
+
+::vhf:: ; for (int i = 0; i < n; i++)
+	Input, idxName, , {enter}{space};
+	Input, num, , {enter}{space};
+	SendByPasteWithBracket("for (int " . idxName . " = 0; " . idxName . " < " . num "; " . idxName . "++) ")
+	return
+
+::v=f:: ; for (int i = 1; i <= n; i++) {
+	Input, idxName, , {enter}{space};
+	Input, num, , {enter}{space};
+	SendByPasteWithBracket("for (int " . idxName . " = 1; " . idxName . " <= " . num "; " . idxName . "++) ")
+	return
+
 SendByPaste(string)
 {
 	BackupClipboard := ClipboardAll
@@ -193,7 +134,7 @@ SendByPasteWithBracket(string)
     Clipboard := BackupClipboard
 }
 
-^!r::
+^!d::
 	Clipboard := ClipboardAll
 	NewText := StrReplace(Clipboard, "`r`n", " ")
 	NewText := RegExReplace(NewText, "\s+", " ")
