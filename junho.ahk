@@ -32,6 +32,7 @@ Loop
     }
 }
 
+#IfWinNotActive ahk_exe idea64.exe
 ^!i::
 	SendByPaste("#include <bits/stdc++.h>`nusing namespace std;`n`n")
 	return
@@ -48,6 +49,7 @@ Loop
 	SendByPasteWithBracket("int main() ")
 	SendByPasteEnter("cin.tie(0) -> sync_with_stdio(0);")
 	return
+#IfWinNotActive
 
 #IfWinExist, Visual Studio Code
 #IfWinActive, Visual Studio Code
@@ -86,9 +88,11 @@ Loop
     SendByPaste("for (auto &e : " . vecName . ") cout << e << "" ""; cout << ""\n"";`n")
     return
 
+#IfWinNotActive ahk_exe idea64.exe
 ^!t::
 	SendByPasteWithBracket("int t;`n`tfor (cin >> t; t--;) ")
 	return
+#IfWinNotActive
 
 ::vhf:: ; for (int i = 0; i < n; i++)
 	Input, idxName, , {enter}{space};
@@ -134,6 +138,7 @@ SendByPasteWithBracket(string)
     Clipboard := BackupClipboard
 }
 
+#IfWinNotActive ahk_exe idea64.exe
 ^!d::
 	Clipboard := ClipboardAll
 	NewText := StrReplace(Clipboard, "`r`n", " ")
@@ -141,6 +146,7 @@ SendByPasteWithBracket(string)
 	Clipboard := NewText
 	Msgbox, , , %clipboard%, 0.8
 	return
+#IfWinNotActive
 
 ::ATKClipRep::
 	Input, target, L1
@@ -155,6 +161,7 @@ SendByPasteWithBracket(string)
 	Msgbox, , , %clipboard%, 0.8
 	return
 
+#IfWinNotActive ahk_exe idea64.exe
 ^!c::
     Gui, Destroy
     BackupClipboard := ClipboardAll
@@ -191,6 +198,7 @@ SendByPasteWithBracket(string)
     GuiControl, Choose, AddressListBox, 1
     Gui, Show, , % "ATK_Bookmark"
     return
+#IfWinNotActive
 
 GuiEscape:
 GuiClose:
@@ -320,6 +328,7 @@ countNumberOfWords(text) {
     return totalWords
 }
 
+#IfWinNotActive ahk_exe idea64.exe
 ^!v::
     BackupClipboard := ClipboardAll
     str := Clipboard
@@ -328,7 +337,9 @@ countNumberOfWords(text) {
     Sleep, 200
     Clipboard := BackupClipboard
     return
+#IfWinNotActive
 
+#IfWinNotActive ahk_exe idea64.exe
 ^!s:: ;block screen off
 ^!+s::
     noScreenOff := !noScreenOff
@@ -349,6 +360,7 @@ countNumberOfWords(text) {
 		Gui, 2: Destroy
 	}
     return
+#IfWinNotActive
 
 2GuiEscape:
 2GuiClose:
@@ -356,6 +368,7 @@ countNumberOfWords(text) {
     Gui, 2: Destroy
     return
 
+#IfWinNotActive ahk_exe idea64.exe
 ^!k:: ;keyboard
     if (MouseControlMode) {
         MouseControlMode := false
@@ -368,6 +381,7 @@ countNumberOfWords(text) {
         Gui, 3: Show, x0 y0 w290 h50, % "mouse control mode"
     }
     return
+#IfWinNotActive
 
 3GuiEscape:
 3GuiClose:
@@ -438,6 +452,7 @@ $i::MouseClick, WheelUp
 ; }
 #If
 
+#IfWinNotActive ahk_exe idea64.exe
 ^!q:: ; fast erase mode on/off
 	If  (fastEraseMode) {
 		fastEraseMode := false
@@ -450,6 +465,7 @@ $i::MouseClick, WheelUp
         Gui, 4: Show, x0 y0 w290 h50, % "fast erase mode"
 	}
 	return
+#IfWinNotActive
 
 4GuiEscape:
 4GuiClose:
