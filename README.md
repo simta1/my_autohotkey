@@ -6,6 +6,7 @@
 |                          | int main, fastio                | `Ctrl + Alt + j`                | #ifNotWinActive intellij         |
 |                          | auto cin                        | `Ctrl + Alt + y`                | #IfWinActivate VSC               |
 |                          | cout vector                     | `::dkdnt:: {vec}`               |                                  |
+|                          | cin vector                      | `::tldls:: {vec} {n}`           |                                  |
 |                          | for (tc)                        | `Ctrl + Alt + t`                | #ifNotWinActive intellij         |
 |                          | for [0, n)                      | `::vhf:: {i} {n}`               |                                  |
 |                          | for [1, n]                      | `::v=f:: {i} {n}`               |                                  |

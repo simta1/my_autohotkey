@@ -88,6 +88,12 @@ Loop
     SendByPaste("for (auto &e : " . vecName . ") cout << e << "" ""; cout << ""\n"";`n")
     return
 
+::tldls:: ; vector<int> v(n); for (auto &e : v) cin >> e;
+    Input, vecName, , {enter}{space};
+    Input, vecSize, , {enter}{space};
+    SendByPaste("vector<int> " . vecName . "(" . vecSize . ");`n" . "for (auto &e : " . vecName . ") cin >> e;`n")
+    return
+
 #IfWinNotActive ahk_exe idea64.exe
 ^!t::
 	SendByPasteWithBracket("int t;`n`tfor (cin >> t; t--;) ")
