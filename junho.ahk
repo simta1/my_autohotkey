@@ -3,7 +3,7 @@ bookmarkFilePath := A_ScriptDir . "\bookmark.txt"
 bookmarkGuiOpened := false
 
 ; 화면 꺼짐 방지 모드 관련
-noScreenOff := false
+noScreenOff := 0
 Gui2Title := "ATK_ScreenProtect"
 
 ; 마우스 조종 모드 관련
@@ -24,7 +24,7 @@ Loop
 		exitapp
 	}
 
-    if (noScreenOff=true) {
+    if (noScreenOff) {
         MouseGetPos, MouseX, MouseY
         MouseMove, MouseX+10, MouseY+10, 10
         MouseMove, MouseX, MouseY, 10
@@ -33,19 +33,19 @@ Loop
 }
 
 #IfWinNotActive ahk_exe idea64.exe
-^!i::
++!i::
 	SendByPaste("#include <bits/stdc++.h>`nusing namespace std;`n`n")
 	return
 
-^!r::
++!r::
 	SendByPaste("#include <ext/rope>`nusing namespace __gnu_cxx;`n`n")
 	return
 
-^!p::
++!p::
 	SendByPaste("#include <ext/pb_ds/assoc_container.hpp>`n#include <ext/pb_ds/tree_policy.hpp>`nusing namespace __gnu_pbds;`nusing ordered_set = tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update>;`n`n")
 	return
 
-^!j::
++!j::
 	SendByPasteWithBracket("int main() ")
 	SendByPasteEnter("cin.tie(0) -> sync_with_stdio(0);")
 	return
@@ -53,7 +53,7 @@ Loop
 
 #IfWinExist, Visual Studio Code
 #IfWinActive, Visual Studio Code
-^!y:: ; auto cin
++!y:: ; auto cin
     BackupClipboard := ClipboardAll
     Clipboard := ""
     Send, ^[
@@ -95,7 +95,7 @@ Loop
     return
 
 #IfWinNotActive ahk_exe idea64.exe
-^!t::
++!t::
 	SendByPasteWithBracket("int t;`n`tfor (cin >> t; t--;) ")
 	return
 #IfWinNotActive
@@ -145,7 +145,7 @@ SendByPasteWithBracket(string)
 }
 
 #IfWinNotActive ahk_exe idea64.exe
-^!d::
++!d::
 	Clipboard := ClipboardAll
 	NewText := StrReplace(Clipboard, "`r`n", " ")
 	NewText := RegExReplace(NewText, "\s+", " ")
@@ -168,7 +168,7 @@ SendByPasteWithBracket(string)
 	return
 
 #IfWinNotActive ahk_exe idea64.exe
-^!c::
++!c::
     Gui, Destroy
     BackupClipboard := ClipboardAll
     Clipboard := ""
@@ -188,7 +188,7 @@ SendByPasteWithBracket(string)
     Clipboard := BackupClipboard
     return
 
-^!o::
++!o::
     if (bookmarkGuiOpened = true) {
         return
     }
@@ -335,7 +335,7 @@ countNumberOfWords(text) {
 }
 
 #IfWinNotActive ahk_exe idea64.exe
-^!v::
++!v::
     BackupClipboard := ClipboardAll
     str := Clipboard
     Clipboard := str
@@ -346,24 +346,24 @@ countNumberOfWords(text) {
 #IfWinNotActive
 
 #IfWinNotActive ahk_exe idea64.exe
-^!s:: ;block screen off
-^!+s::
-    noScreenOff := !noScreenOff
++!s:: ;block screen off
+    if (noScreenOff) {
+		Gui, 2: Destroy
+    }
+
+    noScreenOff := mod(noScreenOff + 1, 3)
     if (noScreenOff) {
         Gui, 2: Default
 		Gui, 2: +AlwaysOnTop
         Gui, 2: Color, White
         Gui, 2: Add, Text, x5 y5 w190 h20 vText, % "screen off preventing is on . . ."
 
-        if GetKeyState("Shift", "P") {
-            Gui, 2: Show, x200 y50 w1200 h700, %Gui2Title%
-        }
-        else {
+        if (noScreenOff=1) {
             Gui, 2: Show, x0 y0 w200 h50, %Gui2Title%
         }
-	}
-	else {
-		Gui, 2: Destroy
+        else if (noScreenOff=2) {
+            Gui, 2: Show, x200 y50 w1200 h700, %Gui2Title%
+        }
 	}
     return
 #IfWinNotActive
@@ -375,7 +375,7 @@ countNumberOfWords(text) {
     return
 
 #IfWinNotActive ahk_exe idea64.exe
-^!k:: ;keyboard
++!k:: ;keyboard
     if (MouseControlMode) {
         MouseControlMode := false
         Gui, 3: Destroy
@@ -459,7 +459,7 @@ $i::MouseClick, WheelUp
 #If
 
 #IfWinNotActive ahk_exe idea64.exe
-^!q:: ; fast erase mode on/off
++!q:: ; fast erase mode on/off
 	If  (fastEraseMode) {
 		fastEraseMode := false
         Gui, 4: Destroy
