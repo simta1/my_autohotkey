@@ -19,8 +19,10 @@
 |                          | select last bookmark            | `0`                             | #IfWinActive BookmarkGUI         |
 | **misc**                 | open wifi list                  | `Win + c`                       |                                  |
 |                          | copy address                    | `Alt + c`                       |                                  |
+|                          | paste address                   | `Alt + v`                       |                                  |
+|                          | paste address in new tab        | `Alt + Shift + v`               |                                  |
 |                          | count selected text             | `Ctrl + Shift + i`              |                                  |
-|                          | paste by plain text             | `Shift + Alt + v`               | #ifNotWinActive intellij         |
+|                          | paste by plain text             | `Ctrl + Shift + v`              | #ifNotWinActive intellij         |
 | **no screen off mode**   | mode on/off                     | `Shift + Alt + s`               | #ifNotWinActive intellij         |
 |                          | super mode on/off               | `Shift + Alt + s`               | #ifNotWinActive intellij         |
 | **mouse control mode**   | mode on/off                     | `Shift + Alt + k`               | #ifNotWinActive intellij         |

@@ -289,11 +289,9 @@ GUIDestroy(HANDLE)
 Run, explorer ms-availablenetworks:
 return
 
-!c::
-Send, !d
-Sleep, 80
-Send, ^c
-return
+!c::Send, !d^c
+!v::Send, !d^v{Enter}
++!v::Send, ^t!d^v{Enter}
 
 ^+i::
 	BackupClip := ClipboardAll
@@ -335,7 +333,7 @@ countNumberOfWords(text) {
 }
 
 #IfWinNotActive ahk_exe idea64.exe
-+!v::
+^+v::
     BackupClipboard := ClipboardAll
     str := Clipboard
     Clipboard := str
