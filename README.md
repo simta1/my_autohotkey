@@ -1,15 +1,15 @@
 | Category                 | Command                         | Keybinding                      | When                             |
 |--------------------------|---------------------------------|---------------------------------|----------------------------------|
-| **coding macro**         | header(bits/stdc++.h)           | `Shift + Alt + i`               | #ifNotWinActive intellij         |
+<!-- |                          | header(bits/stdc++.h)           | `Shift + Alt + i`               | #ifNotWinActive intellij         |
 |                          | header(ext/rope)                | `Shift + Alt + r`               | #ifNotWinActive intellij         |
 |                          | header(ext/pb_ds)               | `Shift + Alt + p`               | #ifNotWinActive intellij         |
 |                          | int main, fastio                | `Shift + Alt + j`               | #ifNotWinActive intellij         |
+|                          | for (tc)                        | `Shift + Alt + t`               | #ifNotWinActive intellij         | -->
+| **coding macro**         | for [0, n)                      | `::vhf:: {i} {n}`               |                                  |
+|                          | for [1, n]                      | `::v=f:: {i} {n}`               |                                  |
 |                          | auto cin                        | `Shift + Alt + y`               | #IfWinActivate VSC               |
 |                          | cout vector                     | `::dkdnt:: {vec}`               |                                  |
 |                          | cin vector                      | `::tldls:: {vec} {n}`           |                                  |
-|                          | for (tc)                        | `Shift + Alt + t`               | #ifNotWinActive intellij         |
-|                          | for [0, n)                      | `::vhf:: {i} {n}`               |                                  |
-|                          | for [1, n]                      | `::v=f:: {i} {n}`               |                                  |
 | **clipboard**            | remove Enter                    | `Shift + Alt + d`               | #ifNotWinActive intellij         |
 |                          | replace                         | `::ATKClipRep:: {pattern} {str}`|                                  |
 |                          | remove                          | `::ATKClipRem:: {pattern}`      |                                  |

@@ -32,24 +32,51 @@ Loop
     }
 }
 
-#IfWinNotActive ahk_exe idea64.exe
-+!i::
-	SendByPaste("#include <bits/stdc++.h>`nusing namespace std;`n`n")
+::vhf:: ; for (int i = 0; i < n; i++)
+	Input, idxName, , {enter}{space};
+	Input, num, , {enter}{space};
+	SendByPasteWithBracket("for (int " . idxName . " = 0; " . idxName . " < " . num "; " . idxName . "++) ")
 	return
 
-+!r::
-	SendByPaste("#include <ext/rope>`nusing namespace __gnu_cxx;`n`n")
+::v=f:: ; for (int i = 1; i <= n; i++) {
+	Input, idxName, , {enter}{space};
+	Input, num, , {enter}{space};
+	SendByPasteWithBracket("for (int " . idxName . " = 1; " . idxName . " <= " . num "; " . idxName . "++) ")
 	return
 
-+!p::
-	SendByPaste("#include <ext/pb_ds/assoc_container.hpp>`n#include <ext/pb_ds/tree_policy.hpp>`nusing namespace __gnu_pbds;`nusing ordered_set = tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update>;`n`n")
-	return
+::dkdnt:: ; for (auto &e : v) cout << e << " "; cout << "\n";
+    Input, vecName, , {enter}{space};
+    SendByPaste("for (auto &e : " . vecName . ") cout << e << "" ""; cout << ""\n"";`n")
+    return
 
-+!j::
-	SendByPasteWithBracket("int main() ")
-	SendByPasteEnter("cin.tie(0) -> sync_with_stdio(0);")
-	return
-#IfWinNotActive
+::tldls:: ; vector<int> v(n); for (auto &e : v) cin >> e;
+    Input, vecName, , {enter}{space};
+    Input, vecSize, , {enter}{space};
+    SendByPaste("vector<int> " . vecName . "(" . vecSize . ");`n" . "for (auto &e : " . vecName . ") cin >> e;`n")
+    return
+
+; #IfWinNotActive ahk_exe idea64.exe
+; +!i::
+; 	SendByPaste("#include <bits/stdc++.h>`nusing namespace std;`n`n")
+; 	return
+
+; +!r::
+; 	SendByPaste("#include <ext/rope>`nusing namespace __gnu_cxx;`n`n")
+; 	return
+
+; +!p::
+; 	SendByPaste("#include <ext/pb_ds/assoc_container.hpp>`n#include <ext/pb_ds/tree_policy.hpp>`nusing namespace __gnu_pbds;`nusing ordered_set = tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update>;`n`n")
+; 	return
+
+; +!j::
+; 	SendByPasteWithBracket("int main() ")
+; 	SendByPasteEnter("cin.tie(0) -> sync_with_stdio(0);")
+; 	return
+
+; +!t::
+; 	SendByPasteWithBracket("int t;`n`tfor (cin >> t; t--;) ")
+; 	return
+; #IfWinNotActive
 
 #IfWinExist, Visual Studio Code
 #IfWinActive, Visual Studio Code
@@ -82,35 +109,6 @@ Loop
 
 #ifWinExist
 #IfWinActive
-
-::dkdnt:: ; for (auto &e : v) cout << e << " "; cout << "\n";
-    Input, vecName, , {enter}{space};
-    SendByPaste("for (auto &e : " . vecName . ") cout << e << "" ""; cout << ""\n"";`n")
-    return
-
-::tldls:: ; vector<int> v(n); for (auto &e : v) cin >> e;
-    Input, vecName, , {enter}{space};
-    Input, vecSize, , {enter}{space};
-    SendByPaste("vector<int> " . vecName . "(" . vecSize . ");`n" . "for (auto &e : " . vecName . ") cin >> e;`n")
-    return
-
-#IfWinNotActive ahk_exe idea64.exe
-+!t::
-	SendByPasteWithBracket("int t;`n`tfor (cin >> t; t--;) ")
-	return
-#IfWinNotActive
-
-::vhf:: ; for (int i = 0; i < n; i++)
-	Input, idxName, , {enter}{space};
-	Input, num, , {enter}{space};
-	SendByPasteWithBracket("for (int " . idxName . " = 0; " . idxName . " < " . num "; " . idxName . "++) ")
-	return
-
-::v=f:: ; for (int i = 1; i <= n; i++) {
-	Input, idxName, , {enter}{space};
-	Input, num, , {enter}{space};
-	SendByPasteWithBracket("for (int " . idxName . " = 1; " . idxName . " <= " . num "; " . idxName . "++) ")
-	return
 
 SendByPaste(string)
 {
