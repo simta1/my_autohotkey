@@ -13,7 +13,7 @@
 | **clipboard**            | remove Enter                    | `Shift + Alt + d`               | #ifNotWinActive intellij         |
 |                          | replace                         | `::ATKClipRep:: {pattern} {str}`|                                  |
 |                          | remove                          | `::ATKClipRem:: {pattern}`      |                                  |
-| **bookmark**             | add bookmark                    | `Shift + Alt + c`               | #ifNotWinActive intellij         |
+| **bookmark**             | add bookmark                    | `Shift + Alt + c`               | #ifNotWinActive VSC              |
 |                          | open bookmark list              | `Shift + Alt + o`               | #ifNotWinActive intellij         |
 |                          | select bookmark                 | `1~9`                           | #IfWinActive BookmarkGUI         |
 |                          | select last bookmark            | `0`                             | #IfWinActive BookmarkGUI         |

@@ -165,7 +165,7 @@ SendByPasteWithBracket(string)
 	Msgbox, , , %clipboard%, 0.8
 	return
 
-#IfWinNotActive ahk_exe idea64.exe
+#IfWinNotActive, Visual Studio Code
 +!c::
     Gui, Destroy
     BackupClipboard := ClipboardAll
@@ -185,7 +185,9 @@ SendByPasteWithBracket(string)
 
     Clipboard := BackupClipboard
     return
+#IfWinNotActive
 
+#IfWinNotActive ahk_exe idea64.exe
 +!o::
     if (bookmarkGuiOpened = true) {
         return
