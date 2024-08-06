@@ -291,7 +291,7 @@ return
 
 !c::Send, !d^c
 !v::Send, !d^v{Enter}
-+!v::Send, ^t!d^v{Enter}
+!t::Send, ^t!d^v{Enter}
 
 ^+i::
 	BackupClip := ClipboardAll

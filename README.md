@@ -20,7 +20,7 @@
 | **misc**                 | open wifi list                  | `Win + c`                       |                                  |
 |                          | copy address                    | `Alt + c`                       |                                  |
 |                          | paste address                   | `Alt + v`                       |                                  |
-|                          | paste address in new tab        | `Alt + Shift + v`               |                                  |
+|                          | paste address in new tab        | `Alt + t`                       |                                  |
 |                          | count selected text             | `Ctrl + Shift + i`              |                                  |
 |                          | paste by plain text             | `Ctrl + Shift + v`              | #ifNotWinActive intellij         |
 | **no screen off mode**   | mode on/off                     | `Shift + Alt + s`               | #ifNotWinActive intellij         |
