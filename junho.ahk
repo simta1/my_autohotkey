@@ -332,7 +332,7 @@ countNumberOfWords(text) {
     return totalWords
 }
 
-#IfWinNotActive ahk_exe idea64.exe
+#IfWinNotActive, Visual Studio Code
 ^+v::
     BackupClipboard := ClipboardAll
     str := Clipboard

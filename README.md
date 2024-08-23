@@ -1,10 +1,5 @@
 | Category                 | Command                         | Keybinding                      | When                             |
 |--------------------------|---------------------------------|---------------------------------|----------------------------------|
-<!-- |                          | header(bits/stdc++.h)           | `Shift + Alt + i`               | #ifNotWinActive intellij         |
-|                          | header(ext/rope)                | `Shift + Alt + r`               | #ifNotWinActive intellij         |
-|                          | header(ext/pb_ds)               | `Shift + Alt + p`               | #ifNotWinActive intellij         |
-|                          | int main, fastio                | `Shift + Alt + j`               | #ifNotWinActive intellij         |
-|                          | for (tc)                        | `Shift + Alt + t`               | #ifNotWinActive intellij         | -->
 | **coding macro**         | for [0, n)                      | `::vhf:: {i} {n}`               |                                  |
 |                          | for [1, n]                      | `::v=f:: {i} {n}`               |                                  |
 |                          | auto cin                        | `Shift + Alt + y`               | #IfWinActivate VSC               |
@@ -22,7 +17,7 @@
 |                          | paste address                   | `Alt + v`                       |                                  |
 |                          | paste address in new tab        | `Alt + t`                       |                                  |
 |                          | count selected text             | `Ctrl + Shift + i`              |                                  |
-|                          | paste by plain text             | `Ctrl + Shift + v`              | #ifNotWinActive intellij         |
+|                          | paste by plain text             | `Ctrl + Shift + v`              | #ifNotWinActive VSC              |
 | **no screen off mode**   | mode on/off                     | `Shift + Alt + s`               | #ifNotWinActive intellij         |
 |                          | super mode on/off               | `Shift + Alt + s`               | #ifNotWinActive intellij         |
 | **mouse control mode**   | mode on/off                     | `Shift + Alt + k`               | #ifNotWinActive intellij         |
