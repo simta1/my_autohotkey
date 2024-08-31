@@ -44,18 +44,13 @@ Loop
 	SendByPasteWithBracket("for (int " . idxName . " = 1; " . idxName . " <= " . num "; " . idxName . "++) ")
 	return
 
-::dkdnt:: ; for (auto &e : v) cout << e << " "; cout << "\n";
-    Input, vecName, , {enter}{space};
-    SendByPaste("for (auto &e : " . vecName . ") cout << e << "" ""; cout << ""\n"";`n")
-    return
+; vsc snippet으로 대체했음
 
-::tldls:: ; vector<int> v(n); for (auto &e : v) cin >> e;
-    Input, vecName, , {enter}{space};
-    Input, vecSize, , {enter}{space};
-    SendByPaste("vector<int> " . vecName . "(" . vecSize . ");`n" . "for (auto &e : " . vecName . ") cin >> e;`n")
-    return
+; ::dkdnt:: ; for (auto &e : v) cout << e << " "; cout << "\n";
+;     Input, vecName, , {enter}{space};
+;     SendByPaste("for (auto &e : " . vecName . ") cout << e << "" ""; cout << ""\n"";`n")
+;     return
 
-; #IfWinNotActive ahk_exe idea64.exe
 ; +!i::
 ; 	SendByPaste("#include <bits/stdc++.h>`nusing namespace std;`n`n")
 ; 	return
@@ -76,11 +71,10 @@ Loop
 ; +!t::
 ; 	SendByPasteWithBracket("int t;`n`tfor (cin >> t; t--;) ")
 ; 	return
-; #IfWinNotActive
 
 #IfWinExist, Visual Studio Code
 #IfWinActive, Visual Studio Code
-+!y:: ; auto cin
+^!y:: ; auto cin
     BackupClipboard := ClipboardAll
     Clipboard := ""
     Send, ^[
@@ -143,7 +137,7 @@ SendByPasteWithBracket(string)
 }
 
 #IfWinNotActive ahk_exe idea64.exe
-+!d::
+^!d::
 	Clipboard := ClipboardAll
 	NewText := StrReplace(Clipboard, "`r`n", " ")
 	NewText := RegExReplace(NewText, "\s+", " ")
@@ -165,8 +159,8 @@ SendByPasteWithBracket(string)
 	Msgbox, , , %clipboard%, 0.8
 	return
 
-#IfWinNotActive, Visual Studio Code
-+!c::
+#IfWinNotActive ahk_exe idea64.exe
+^!c::
     Gui, Destroy
     BackupClipboard := ClipboardAll
     Clipboard := ""
@@ -185,10 +179,8 @@ SendByPasteWithBracket(string)
 
     Clipboard := BackupClipboard
     return
-#IfWinNotActive
 
-#IfWinNotActive ahk_exe idea64.exe
-+!o::
+^!o::
     if (bookmarkGuiOpened = true) {
         return
     }
@@ -293,7 +285,8 @@ return
 !v::Send, !d^v{Enter}
 !t::Send, ^t!d^v{Enter}
 
-^+i::
+#IfWinNotActive ahk_exe idea64.exe
+^!i::
 	BackupClip := ClipboardAll
 	Clipboard := ""
 	SendInput, ^c
@@ -332,8 +325,7 @@ countNumberOfWords(text) {
     return totalWords
 }
 
-#IfWinNotActive, Visual Studio Code
-^+v::
+^!v::
     BackupClipboard := ClipboardAll
     str := Clipboard
     Clipboard := str
@@ -341,10 +333,8 @@ countNumberOfWords(text) {
     Sleep, 200
     Clipboard := BackupClipboard
     return
-#IfWinNotActive
 
-#IfWinNotActive ahk_exe idea64.exe
-+!s:: ;block screen off
+^!s:: ;block screen off
     if (noScreenOff) {
 		Gui, 2: Destroy
     }
@@ -373,7 +363,7 @@ countNumberOfWords(text) {
     return
 
 #IfWinNotActive ahk_exe idea64.exe
-+!k:: ;keyboard
+^!k:: ;keyboard
     if (MouseControlMode) {
         MouseControlMode := false
         Gui, 3: Destroy
@@ -457,7 +447,7 @@ $i::MouseClick, WheelUp
 #If
 
 #IfWinNotActive ahk_exe idea64.exe
-+!q:: ; fast erase mode on/off
+^!q:: ; fast erase mode on/off
 	If  (fastEraseMode) {
 		fastEraseMode := false
         Gui, 4: Destroy
