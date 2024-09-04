@@ -45,32 +45,31 @@ Loop
 	return
 
 ; vsc snippet으로 대체했음
+    ; ::dkdnt:: ; for (auto &e : v) cout << e << " "; cout << "\n";
+    ;     Input, vecName, , {enter}{space};
+    ;     SendByPaste("for (auto &e : " . vecName . ") cout << e << "" ""; cout << ""\n"";`n")
+    ;     return
 
-; ::dkdnt:: ; for (auto &e : v) cout << e << " "; cout << "\n";
-;     Input, vecName, , {enter}{space};
-;     SendByPaste("for (auto &e : " . vecName . ") cout << e << "" ""; cout << ""\n"";`n")
-;     return
+    ; +!i::
+    ; 	SendByPaste("#include <bits/stdc++.h>`nusing namespace std;`n`n")
+    ; 	return
 
-; +!i::
-; 	SendByPaste("#include <bits/stdc++.h>`nusing namespace std;`n`n")
-; 	return
+    ; +!r::
+    ; 	SendByPaste("#include <ext/rope>`nusing namespace __gnu_cxx;`n`n")
+    ; 	return
 
-; +!r::
-; 	SendByPaste("#include <ext/rope>`nusing namespace __gnu_cxx;`n`n")
-; 	return
+    ; +!p::
+    ; 	SendByPaste("#include <ext/pb_ds/assoc_container.hpp>`n#include <ext/pb_ds/tree_policy.hpp>`nusing namespace __gnu_pbds;`nusing ordered_set = tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update>;`n`n")
+    ; 	return
 
-; +!p::
-; 	SendByPaste("#include <ext/pb_ds/assoc_container.hpp>`n#include <ext/pb_ds/tree_policy.hpp>`nusing namespace __gnu_pbds;`nusing ordered_set = tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update>;`n`n")
-; 	return
+    ; +!j::
+    ; 	SendByPasteWithBracket("int main() ")
+    ; 	SendByPasteEnter("cin.tie(0) -> sync_with_stdio(0);")
+    ; 	return
 
-; +!j::
-; 	SendByPasteWithBracket("int main() ")
-; 	SendByPasteEnter("cin.tie(0) -> sync_with_stdio(0);")
-; 	return
-
-; +!t::
-; 	SendByPasteWithBracket("int t;`n`tfor (cin >> t; t--;) ")
-; 	return
+    ; +!t::
+    ; 	SendByPasteWithBracket("int t;`n`tfor (cin >> t; t--;) ")
+    ; 	return
 
 #IfWinExist, Visual Studio Code
 #IfWinActive, Visual Studio Code
