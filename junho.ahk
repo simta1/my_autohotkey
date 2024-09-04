@@ -1,6 +1,6 @@
 ; 북마크 관련
-bookmarkFilePath := A_ScriptDir . "\bookmark.txt"
-bookmarkGuiOpened := false
+directoryPath := A_ScriptDir . "\bookmark\directory.txt"
+directoryGuiOpened := false
 
 ; 화면 꺼짐 방지 모드 관련
 noScreenOff := 0
@@ -169,7 +169,7 @@ SendByPasteWithBracket(string)
 	ClipWait, 0.5
 	if (ErrorLevel = 0)	{
         URL := Clipboard
-        FileAppend, `n%URL%, %bookmarkFilePath%
+        FileAppend, `n%URL%, %directoryPath%
         Msgbox, url : %URL%
 	}
     else {
@@ -180,55 +180,58 @@ SendByPasteWithBracket(string)
     return
 
 ^!o::
-    if (bookmarkGuiOpened = true) {
+    if (directoryGuiOpened = true) {
         return
     }
 
-    bookmarkGuiOpened := true
+    directoryGuiOpened := true
     Gui, +AlwaysOnTop
     Gui, Font, s15
-    Gui, Add, ListBox, w400 h400 vAddressListBox hwndHANDLE, % ReadAddressesFromFile()
+    Gui, Add, ListBox, w400 h400 vDirectoryListBox hwndHANDLE, % DirectoryGuiInitByTxt()
     Gui, Font, s10
-    Gui, Add, Button, x18 y400 w50 h20 Default gOpenAddress vOpenBtn, Open
-    Gui, Add, Button, x71 y400 w50 h20 gDeleteAddress vDeleteBtn, Delete
-    Gui, Add, Button, x124 y400 w50 h20 gUndoAddress vUndoBtn + Disabled, Undo
-    GuiControl, Choose, AddressListBox, 1
-    Gui, Show, , % "ATK_Bookmark"
+    Gui, Add, Button, x18 y400 w50 h20 Default gDirectoryGuiOpen vOpenBtn, Open
+    Gui, Add, Button, x71 y400 w50 h20 gDirectoryGuiDelete vDeleteBtn, Delete
+    Gui, Add, Button, x124 y400 w50 h20 gDirectoryGuiUndo vUndoBtn + Disabled, Undo
+    GuiControl, Choose, DirectoryListBox, 1
+    Gui, Show, , % "ATK_DIRECTORY"
     return
 #IfWinNotActive
 
 GuiEscape:
 GuiClose:
-    GuiDestroy(HANDLE)
+    DirectoryGuiDestroy(HANDLE)
     return
 
-OpenAddress:
-    GuiControlGet, SelectedAddress, , AddressListBox
-    if (SelectedAddress != "")
+DirectoryGuiOpen:
+    GuiControlGet, SelectedDirectory, , DirectoryListBox
+    if (SelectedDirectory != "")
     {
-        Run, %SelectedAddress%
+        Run, %SelectedDirectory%
     }
-    GuiDestroy(HANDLE)
+    DirectoryGuiDestroy(HANDLE)
     return
 
-DeleteAddress:
-    GuiControlGet, DeletedAddress, , AddressListBox
+DirectoryGuiDelete:
+    GuiControlGet, DeletedDirectory, , DirectoryListBox
     sendmessage, 0x188, 0, 0, , ahk_id %HANDLE%
     sendmessage, 0x182, errorlevel, 0, , ahk_id %HANDLE%
     GuiControl, Enable, UndoBtn
+    GuiControl, Choose, DirectoryListBox, 1
     return
 
-UndoAddress:
-    GuiControlGet, Items, , AddressListBox
-    Items := Items "`n" DeletedAddress
-    GuiControl, , AddressListBox, %Items%
+DirectoryGuiUndo:
+    GuiControl, Choose, DirectoryListBox, 0 ; 이걸로 choose 취소해놔야 undo제대로 작동함. 이거 안 하면 undo할때 이전에 delete된거랑 1번째 원소 합쳐진 링크가 새로 생김
+    GuiControlGet, Items, , DirectoryListBox
+    Items := Items "`n" DeletedDirectory
+    GuiControl, , DirectoryListBox, %Items%
     GuiControl, Disable, UndoBtn
+    GuiControl, Choose, DirectoryListBox, 1
     return
 
-ReadAddressesFromFile()
+DirectoryGuiInitByTxt()
 {
-    global bookmarkFilePath
-    FileRead, fileContents, %bookmarkFilePath%
+    global directoryPath
+    FileRead, fileContents, %directoryPath%
 
     bookmarks := ""
     Loop, Parse, fileContents, `n
@@ -238,20 +241,20 @@ ReadAddressesFromFile()
     return bookmarks
 }
 
-GUIDestroy(HANDLE)
+DirectoryGuiDestroy(HANDLE)
 {
-    global bookmarkFilePath
-    FileDelete, %bookmarkFilePath%
+    global directoryPath
+    FileDelete, %directoryPath%
     ControlGet, Items, List,,, ahk_id %HANDLE%
-    FileAppend, %Items%, %bookmarkFilePath%
+    FileAppend, %Items%, %directoryPath%
     Gui, Destroy
 
-    global bookmarkGuiOpened
-    bookmarkGuiOpened := false
+    global directoryGuiOpened
+    directoryGuiOpened := false
 }
 
-#IfWinExist, ATK_Bookmark ; 변수로 했더니 에러남. 리터럴만 가능한듯
-#IfWinActive, ATK_Bookmark
+#IfWinExist, ATK_DIRECTORY ; 변수로 했더니 에러남. 리터럴만 가능한듯
+#IfWinActive, ATK_DIRECTORY
 1::
 2::
 3::
@@ -261,7 +264,7 @@ GUIDestroy(HANDLE)
 7::
 8::
 9::
-    GuiControl, Choose, AddressListBox, % SubStr(A_ThisHotkey, 1)
+    GuiControl, Choose, DirectoryListBox, % SubStr(A_ThisHotkey, 1)
     return
 
 0::
@@ -271,7 +274,7 @@ GUIDestroy(HANDLE)
     {
         cnt++
     }
-    GuiControl, Choose, AddressListBox, %cnt%
+    GuiControl, Choose, DirectoryListBox, %cnt%
     return
 #IfWinExist
 #IfWinActive
