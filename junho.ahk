@@ -1,4 +1,6 @@
 ; ºÏ¸¶Å© °ü·Ã
+    bookmarkAddMode := false
+    bookmarkAddURL := ""
 ; gui 1 : directory
     directoryPath := A_ScriptDir . "\bookmark" ; \directory.txt"
     directoryGuiOpened := false
@@ -175,9 +177,11 @@ SendByPasteWithBracket(string)
     Send, ^c
 	ClipWait, 0.5
 	if (ErrorLevel = 0)	{
-        URL := Clipboard
-        FileAppend, `n%URL%, %directoryPath%
-        Msgbox, url : %URL%
+        bookmarkAddURL := Clipboard
+        ; FileAppend, `n%URL%, %directoryPath%
+        Msgbox, url : %bookmarkAddURL%
+        bookmarkAddMode := true
+        OpenDirectoryGui()
 	}
     else {
         MsgBox, copy failed
@@ -187,9 +191,19 @@ SendByPasteWithBracket(string)
     return
 
 ^!o::
+    bookmarkAddMode := false
+    OpenDirectoryGui()
+    return
+#IfWinNotActive
+
+OpenDirectoryGui()
+{
+    global directoryGuiOpened
     if (directoryGuiOpened = true) {
         return
     }
+
+    global DirectoryListBox, openBtn
 
     directoryGuiOpened := true
     Gui, +AlwaysOnTop
@@ -200,7 +214,7 @@ SendByPasteWithBracket(string)
     GuiControl, Choose, DirectoryListBox, 1
     Gui, Show, , % "ATK_DIRECTORY"
     return
-#IfWinNotActive
+}
 
 GuiEscape:
 GuiClose:
@@ -213,11 +227,18 @@ DirectoryGuiOpen:
     GuiControlGet, SelectedDirectory, , DirectoryListBox
     if (SelectedDirectory != "")
     {
-        bookmarkPath := "\bookmark\" . SelectedDirectory
-        msgbox, % bookmarkpath
+        bookmarkPath := A_ScriptDir . "\bookmark\" . SelectedDirectory
+        ; msgbox, % bookmarkpath
     }
     DirectoryGuiDestroy(HANDLE)
-    OpenBookmarkGui()
+    if (bookmarkAddMode)
+    {
+        FileAppend, `n%bookmarkAddURL%, %bookmarkPath%
+    }
+    else
+    {
+        OpenBookmarkGui()
+    }
     return
 
 DirectoryGuiInitByTxt()
@@ -331,7 +352,7 @@ BookmarkGuiUndo:
 BookmarkGuiInitByTxt()
 {
     global bookmarkPath
-    FileRead, fileContents, % A_ScriptDir . bookmarkPath
+    FileRead, fileContents, % bookmarkPath
 
     bookmarks := ""
     Loop, Parse, fileContents, `n
@@ -364,7 +385,7 @@ BookmarkGuiDestroy(HANDLE)
 7::
 8::
 9::
-    GuiControl, Choose, BookmarkListBox, % SubStr(A_ThisHotkey, 1)
+    GuiControl, 5: Choose, BookmarkListBox, % SubStr(A_ThisHotkey, 1)
     return
 
 0::
@@ -374,7 +395,7 @@ BookmarkGuiDestroy(HANDLE)
     {
         cnt++
     }
-    GuiControl, Choose, BookmarkListBox, %cnt%
+    GuiControl, 5: Choose, BookmarkListBox, %cnt%
     return
 #IfWinExist
 #IfWinActive
