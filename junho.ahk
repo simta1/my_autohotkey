@@ -228,7 +228,6 @@ DirectoryGuiOpen:
     if (SelectedDirectory != "")
     {
         bookmarkPath := A_ScriptDir . "\bookmark\" . SelectedDirectory
-        ; msgbox, % bookmarkpath
     }
     DirectoryGuiDestroy(HANDLE)
     if (bookmarkAddMode)
@@ -243,14 +242,15 @@ DirectoryGuiInitByTxt()
     global directoryPath
     fileList := ""
 
-    Loop, Files, %directoryPath%\*  ; 지정된 경로의 모든 파일을 반복 처리
+    Loop, Files, %directoryPath%\* 
     {
-        fileList .= A_LoopFileName . "|"  ; 파일명을 "|"로 연결하여 추가
+        fileList .= A_LoopFileName . "|"
     }
 
-    ; 마지막 "|" 제거 (선택사항)
     if (fileList != "")
+    {
         fileList := SubStr(fileList, 1, -1)
+    }
 
     return fileList
 }
