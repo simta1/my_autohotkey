@@ -235,10 +235,7 @@ DirectoryGuiOpen:
     {
         FileAppend, `n%bookmarkAddURL%, %bookmarkPath%
     }
-    else
-    {
-        OpenBookmarkGui()
-    }
+    OpenBookmarkGui()
     return
 
 DirectoryGuiInitByTxt()
