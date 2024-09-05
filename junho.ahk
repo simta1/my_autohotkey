@@ -1,17 +1,26 @@
 ; 북마크 관련
-bookmarkFilePath := A_ScriptDir . "\bookmark.txt"
-bookmarkGuiOpened := false
+    bookmarkAddMode := false
+    bookmarkAddURL := ""
+; gui 1 : directory
+    directoryPath := A_ScriptDir . "\bookmark" ; \directory.txt"
+    directoryGuiOpened := false
+; gui 5 : file
+    bookmarkPath := ""
+    bookmarkGuiOpened := false
 
 ; 화면 꺼짐 방지 모드 관련
-noScreenOff := 0
-Gui2Title := "ATK_ScreenProtect"
+; gui 2
+    noScreenOff := 0
+    Gui2Title := "ATK_ScreenProtect"
 
 ; 마우스 조종 모드 관련
-MouseControlMode := false
-MouseControlDistance := 50
+; gui 3
+    MouseControlMode := false
+    MouseControlDistance := 50
 
 ; 빠르게 지우기 모드 관련
-fastEraseMode := false
+; gui 4
+    fastEraseMode := false
 
 SetTitleMatchMode, 2 ; 부분 문자열 일치 모드로 설정 (창 제목이 일부만 일치해도 됨)
 Msgbox, , , junho.ahk has been executed., 0.6
@@ -45,32 +54,31 @@ Loop
 	return
 
 ; vsc snippet으로 대체했음
+    ; ::dkdnt:: ; for (auto &e : v) cout << e << " "; cout << "\n";
+    ;     Input, vecName, , {enter}{space};
+    ;     SendByPaste("for (auto &e : " . vecName . ") cout << e << "" ""; cout << ""\n"";`n")
+    ;     return
 
-; ::dkdnt:: ; for (auto &e : v) cout << e << " "; cout << "\n";
-;     Input, vecName, , {enter}{space};
-;     SendByPaste("for (auto &e : " . vecName . ") cout << e << "" ""; cout << ""\n"";`n")
-;     return
+    ; +!i::
+    ; 	SendByPaste("#include <bits/stdc++.h>`nusing namespace std;`n`n")
+    ; 	return
 
-; +!i::
-; 	SendByPaste("#include <bits/stdc++.h>`nusing namespace std;`n`n")
-; 	return
+    ; +!r::
+    ; 	SendByPaste("#include <ext/rope>`nusing namespace __gnu_cxx;`n`n")
+    ; 	return
 
-; +!r::
-; 	SendByPaste("#include <ext/rope>`nusing namespace __gnu_cxx;`n`n")
-; 	return
+    ; +!p::
+    ; 	SendByPaste("#include <ext/pb_ds/assoc_container.hpp>`n#include <ext/pb_ds/tree_policy.hpp>`nusing namespace __gnu_pbds;`nusing ordered_set = tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update>;`n`n")
+    ; 	return
 
-; +!p::
-; 	SendByPaste("#include <ext/pb_ds/assoc_container.hpp>`n#include <ext/pb_ds/tree_policy.hpp>`nusing namespace __gnu_pbds;`nusing ordered_set = tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update>;`n`n")
-; 	return
+    ; +!j::
+    ; 	SendByPasteWithBracket("int main() ")
+    ; 	SendByPasteEnter("cin.tie(0) -> sync_with_stdio(0);")
+    ; 	return
 
-; +!j::
-; 	SendByPasteWithBracket("int main() ")
-; 	SendByPasteEnter("cin.tie(0) -> sync_with_stdio(0);")
-; 	return
-
-; +!t::
-; 	SendByPasteWithBracket("int t;`n`tfor (cin >> t; t--;) ")
-; 	return
+    ; +!t::
+    ; 	SendByPasteWithBracket("int t;`n`tfor (cin >> t; t--;) ")
+    ; 	return
 
 #IfWinExist, Visual Studio Code
 #IfWinActive, Visual Studio Code
@@ -169,9 +177,11 @@ SendByPasteWithBracket(string)
     Send, ^c
 	ClipWait, 0.5
 	if (ErrorLevel = 0)	{
-        URL := Clipboard
-        FileAppend, `n%URL%, %bookmarkFilePath%
-        Msgbox, url : %URL%
+        bookmarkAddURL := Clipboard
+        ; FileAppend, `n%URL%, %directoryPath%
+        Msgbox, url : %bookmarkAddURL%
+        bookmarkAddMode := true
+        OpenDirectoryGui()
 	}
     else {
         MsgBox, copy failed
@@ -181,78 +191,84 @@ SendByPasteWithBracket(string)
     return
 
 ^!o::
-    if (bookmarkGuiOpened = true) {
-        return
-    }
-
-    bookmarkGuiOpened := true
-    Gui, +AlwaysOnTop
-    Gui, Font, s15
-    Gui, Add, ListBox, w400 h400 vAddressListBox hwndHANDLE, % ReadAddressesFromFile()
-    Gui, Font, s10
-    Gui, Add, Button, x18 y400 w50 h20 Default gOpenAddress vOpenBtn, Open
-    Gui, Add, Button, x71 y400 w50 h20 gDeleteAddress vDeleteBtn, Delete
-    Gui, Add, Button, x124 y400 w50 h20 gUndoAddress vUndoBtn + Disabled, Undo
-    GuiControl, Choose, AddressListBox, 1
-    Gui, Show, , % "ATK_Bookmark"
+    bookmarkAddMode := false
+    OpenDirectoryGui()
     return
 #IfWinNotActive
 
+OpenDirectoryGui()
+{
+    global directoryGuiOpened
+    if (directoryGuiOpened = true) {
+        return
+    }
+
+    global DirectoryListBox, openBtn
+
+    directoryGuiOpened := true
+    Gui, +AlwaysOnTop
+    Gui, Font, s15
+    Gui, Add, ListBox, w400 h400 vDirectoryListBox hwndHANDLE, % DirectoryGuiInitByTxt()
+    Gui, Font, s10
+    Gui, Add, Button, x18 y400 w50 h20 Default gDirectoryGuiOpen vOpenBtn, Open
+    GuiControl, Choose, DirectoryListBox, 1
+    Gui, Show, , % "ATK_DIRECTORY"
+    return
+}
+
 GuiEscape:
 GuiClose:
-    GuiDestroy(HANDLE)
+    DirectoryGuiDestroy(HANDLE)
     return
 
-OpenAddress:
-    GuiControlGet, SelectedAddress, , AddressListBox
-    if (SelectedAddress != "")
+DirectoryGuiOpen:
+    global bookmarkPath
+
+    GuiControlGet, SelectedDirectory, , DirectoryListBox
+    if (SelectedDirectory != "")
     {
-        Run, %SelectedAddress%
+        bookmarkPath := A_ScriptDir . "\bookmark\" . SelectedDirectory
+        ; msgbox, % bookmarkpath
     }
-    GuiDestroy(HANDLE)
+    DirectoryGuiDestroy(HANDLE)
+    if (bookmarkAddMode)
+    {
+        FileAppend, `n%bookmarkAddURL%, %bookmarkPath%
+    }
+    OpenBookmarkGui()
     return
 
-DeleteAddress:
-    GuiControlGet, DeletedAddress, , AddressListBox
-    sendmessage, 0x188, 0, 0, , ahk_id %HANDLE%
-    sendmessage, 0x182, errorlevel, 0, , ahk_id %HANDLE%
-    GuiControl, Enable, UndoBtn
-    return
-
-UndoAddress:
-    GuiControlGet, Items, , AddressListBox
-    Items := Items "`n" DeletedAddress
-    GuiControl, , AddressListBox, %Items%
-    GuiControl, Disable, UndoBtn
-    return
-
-ReadAddressesFromFile()
+DirectoryGuiInitByTxt()
 {
-    global bookmarkFilePath
-    FileRead, fileContents, %bookmarkFilePath%
+    global directoryPath
+    fileList := ""
 
-    bookmarks := ""
-    Loop, Parse, fileContents, `n
+    Loop, Files, %directoryPath%\*  ; 지정된 경로의 모든 파일을 반복 처리
     {
-        bookmarks .= A_LoopField . "|"
+        fileList .= A_LoopFileName . "|"  ; 파일명을 "|"로 연결하여 추가
     }
-    return bookmarks
+
+    ; 마지막 "|" 제거 (선택사항)
+    if (fileList != "")
+        fileList := SubStr(fileList, 1, -1)
+
+    return fileList
 }
 
-GUIDestroy(HANDLE)
+DirectoryGuiDestroy(HANDLE)
 {
-    global bookmarkFilePath
-    FileDelete, %bookmarkFilePath%
+    global directoryPath
+    FileDelete, %directoryPath%
     ControlGet, Items, List,,, ahk_id %HANDLE%
-    FileAppend, %Items%, %bookmarkFilePath%
+    FileAppend, %Items%, %directoryPath%
     Gui, Destroy
 
-    global bookmarkGuiOpened
-    bookmarkGuiOpened := false
+    global directoryGuiOpened
+    directoryGuiOpened := false
 }
 
-#IfWinExist, ATK_Bookmark ; 변수로 했더니 에러남. 리터럴만 가능한듯
-#IfWinActive, ATK_Bookmark
+#IfWinExist, ATK_DIRECTORY ; 변수로 했더니 에러남. 리터럴만 가능한듯
+#IfWinActive, ATK_DIRECTORY
 1::
 2::
 3::
@@ -262,7 +278,7 @@ GUIDestroy(HANDLE)
 7::
 8::
 9::
-    GuiControl, Choose, AddressListBox, % SubStr(A_ThisHotkey, 1)
+    GuiControl, Choose, DirectoryListBox, % SubStr(A_ThisHotkey, 1)
     return
 
 0::
@@ -272,7 +288,111 @@ GUIDestroy(HANDLE)
     {
         cnt++
     }
-    GuiControl, Choose, AddressListBox, %cnt%
+    GuiControl, Choose, DirectoryListBox, %cnt%
+    return
+#IfWinExist
+#IfWinActive
+
+OpenBookmarkGui()
+{
+    global bookmarkGuiOpened
+    if (bookmarkGuiOpened = true) {
+        return
+    }
+
+    global BookmarkListBox, openBtn, deleteBtn, undoBtn
+
+    bookmarkGuiOpened := true
+    Gui, 5: +AlwaysOnTop
+    Gui, 5: Font, s15
+    Gui, 5: Add, ListBox, w400 h400 vBookmarkListBox hwndHANDLE, % BookmarkGuiInitByTxt()
+    Gui, 5: Font, s10
+    Gui, 5: Add, Button, x18 y400 w50 h20 Default gBookmarkGuiOpen vOpenBtn, Open
+    Gui, 5: Add, Button, x71 y400 w50 h20 gBookmarkGuiDelete vDeleteBtn, Delete
+    Gui, 5: Add, Button, x124 y400 w50 h20 gBookmarkGuiUndo vUndoBtn + Disabled, Undo
+    GuiControl, 5: Choose, BookmarkListBox, 1
+    Gui, 5: Show, , % "ATK_BOOKMARK"
+    return
+}
+
+5GuiEscape:
+5GuiClose:
+    BookmarkGuiDestroy(HANDLE)
+    return
+
+BookmarkGuiOpen:
+    GuiControlGet, SelectedBookmark, , BookmarkListBox
+    if (SelectedBookmark != "")
+    {
+        Run, %SelectedBookmark%
+    }
+    BookmarkGuiDestroy(HANDLE)
+    return
+
+BookmarkGuiDelete:
+    GuiControlGet, DeletedBookmark, , BookmarkListBox
+    sendmessage, 0x188, 0, 0, , ahk_id %HANDLE%
+    sendmessage, 0x182, errorlevel, 0, , ahk_id %HANDLE%
+    GuiControl, Enable, UndoBtn
+    GuiControl, Choose, BookmarkListBox, 1
+    return
+
+BookmarkGuiUndo:
+    GuiControl, Choose, BookmarkListBox, 0 ; 이걸로 choose 취소해놔야 undo제대로 작동함. 이거 안 하면 undo할때 이전에 delete된거랑 1번째 원소 합쳐진 링크가 새로 생김
+    GuiControlGet, Items, , BookmarkListBox
+    Items := Items "`n" DeletedBookmark
+    GuiControl, , BookmarkListBox, %Items%
+    GuiControl, Disable, UndoBtn
+    GuiControl, Choose, BookmarkListBox, 1
+    return
+
+BookmarkGuiInitByTxt()
+{
+    global bookmarkPath
+    FileRead, fileContents, % bookmarkPath
+
+    bookmarks := ""
+    Loop, Parse, fileContents, `n
+    {
+        bookmarks .= A_LoopField . "|"
+    }
+    return bookmarks
+}
+
+BookmarkGuiDestroy(HANDLE)
+{
+    global bookmarkPath
+    FileDelete, %bookmarkPath%
+    ControlGet, Items, List,,, ahk_id %HANDLE%
+    FileAppend, %Items%, %bookmarkPath%
+    Gui, Destroy
+
+    global bookmarkGuiOpened
+    bookmarkGuiOpened := false
+}
+
+#IfWinExist, ATK_BOOKMARK ; 변수로 했더니 에러남. 리터럴만 가능한듯
+#IfWinActive, ATK_BOOKMARK
+1::
+2::
+3::
+4::
+5::
+6::
+7::
+8::
+9::
+    GuiControl, 5: Choose, BookmarkListBox, % SubStr(A_ThisHotkey, 1)
+    return
+
+0::
+    ControlGet, List, List, Count, ListBox1, A
+    cnt := 0
+    Loop, Parse, List, `n
+    {
+        cnt++
+    }
+    GuiControl, 5: Choose, BookmarkListBox, %cnt%
     return
 #IfWinExist
 #IfWinActive
