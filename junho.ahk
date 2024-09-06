@@ -322,6 +322,8 @@ OpenBookmarkGui()
 
 BookmarkGuiOpen:
     GuiControlGet, SelectedBookmark, , BookmarkListBox
+
+    SelectedBookmark := Trim(SelectedBookmark, "`n`r") ; 웹사이트 링크는 상관없는데 폴더경로인 경우 끝에 줄바꿈 있으면 오류남
     if (SelectedBookmark != "")
     {
         Run, %SelectedBookmark%
