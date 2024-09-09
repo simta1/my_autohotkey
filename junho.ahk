@@ -178,8 +178,6 @@ SendByPasteWithBracket(string)
 	ClipWait, 0.5
 	if (ErrorLevel = 0)	{
         bookmarkAddURL := Clipboard
-        ; FileAppend, `n%URL%, %directoryPath%
-        Msgbox, url : %bookmarkAddURL%
         bookmarkAddMode := true
         OpenDirectoryGui()
 	}
