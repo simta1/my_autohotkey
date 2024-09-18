@@ -80,37 +80,38 @@ Loop
     ; 	SendByPasteWithBracket("int t;`n`tfor (cin >> t; t--;) ")
     ; 	return
 
-#IfWinExist, Visual Studio Code
-#IfWinActive, Visual Studio Code
-^!y:: ; auto cin
-    BackupClipboard := ClipboardAll
-    Clipboard := ""
-    Send, ^[
-    Sleep, 50
-    SendRaw, "+yy
-    Sleep, 50
-    Send, o
-	str := Clipboard
-	Clipboard := BackupClipboard
+; neovim script로 대체했음
+    ; #IfWinExist, Visual Studio Code
+    ; #IfWinActive, Visual Studio Code
+    ; ^!y:: ; auto cin
+    ;     BackupClipboard := ClipboardAll
+    ;     Clipboard := ""
+    ;     Send, ^[
+    ;     Sleep, 50
+    ;     SendRaw, "+yy
+    ;     Sleep, 50
+    ;     Send, o
+    ; 	str := Clipboard
+    ; 	Clipboard := BackupClipboard
 
-    str := trim(str)
-    StringSplit, Words, str, " "
-    len := Strlen(Words1)
-    str := SubStr(str, len + 1)
-    str := trim(str)
-    StringSplit, Words, str, `,
-    output := "cin"
-    Loop, % Words0
-    {
-        word := Words%A_Index%
-        word := trim(word)
-        output .= " >> "word
-    }
-	SendByPaste(output)
-    return
+    ;     str := trim(str)
+    ;     StringSplit, Words, str, " "
+    ;     len := Strlen(Words1)
+    ;     str := SubStr(str, len + 1)
+    ;     str := trim(str)
+    ;     StringSplit, Words, str, `,
+    ;     output := "cin"
+    ;     Loop, % Words0
+    ;     {
+    ;         word := Words%A_Index%
+    ;         word := trim(word)
+    ;         output .= " >> "word
+    ;     }
+    ; 	SendByPaste(output)
+    ;     return
 
-#ifWinExist
-#IfWinActive
+    ; #ifWinExist
+    ; #IfWinActive
 
 SendByPaste(string)
 {

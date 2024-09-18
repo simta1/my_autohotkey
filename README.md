@@ -4,7 +4,6 @@
 |--------------------------|---------------------------------|---------------------------------|----------------------------------|
 | **coding macro**         | for [0, n)                      | `::vhf:: {i} {n}`               |                                  |
 |                          | for [1, n]                      | `::v=f:: {i} {n}`               |                                  |
-|                          | auto cin                        | `Ctrl + Alt + y`                | #IfWinActive VSC                 |
 | **clipboard**            | clipboard remove newline        | `Ctrl + Alt + d`                | #ifWinNotActive intellij         |
 |                          | clipboard replace               | `::ATKClipRep:: {pattern} {str}`|                                  |
 |                          | clipboard remove                | `::ATKClipRem:: {pattern}`      |                                  |
