@@ -402,9 +402,12 @@ BookmarkGuiDestroy(HANDLE)
 Run, explorer ms-availablenetworks:
 return
 
+; url 복붙 관련
+!x::Send, !d^c^w
 !c::Send, !d^c
 !v::Send, !d^v{Enter}
 !t::Send, ^t!d^v{Enter}
+!n::Send, ^n!d^v{Enter}
 
 #IfWinNotActive ahk_exe idea64.exe
 ^!i::

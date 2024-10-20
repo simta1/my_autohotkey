@@ -12,9 +12,11 @@
 |                          | select bookmark                 | `1~9`                           | #IfWinActive BookmarkGUI         |
 |                          | select last bookmark            | `0`                             | #IfWinActive BookmarkGUI         |
 | **misc**                 | open wifi list                  | `Win + c`                       |                                  |
+|                          | cut address                     | `Alt + x`                       |                                  |
 |                          | copy address                    | `Alt + c`                       |                                  |
-|                          | paste address                   | `Alt + v`                       |                                  |
+|                          | paste address in current tab    | `Alt + v`                       |                                  |
 |                          | paste address in new tab        | `Alt + t`                       |                                  |
+|                          | paste address in new window     | `Alt + n`                       |                                  |
 |                          | count selected text             | `Ctrl + Alt + i`                | #ifWinNotActive intellij         |
 |                          | paste by plain text             | `Ctrl + Alt + v`                | #ifWinNotActive intellij         |
 | **no screen off mode**   | mode on/off                     | `Ctrl + Alt + s`                | #ifNotWinActive intellij         |
