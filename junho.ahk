@@ -604,3 +604,7 @@ $i::MouseClick, WheelUp
 	return
 }
 #if
+
+^!h:: ; help
+    ListHotkeys
+    return
